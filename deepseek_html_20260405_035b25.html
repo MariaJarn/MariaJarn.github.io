@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Приглашение на свадьбу | Вадим & Мария | 29 июня 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #ffffff;
+            font-family: 'Georgia', 'Times New Roman', 'Segoe UI', serif;
+            color: #1e1e1e;
+            overflow-x: hidden;
+        }
+
+        /* Каждая секция */
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            position: relative;
+            background-color: #ffffff;
+        }
+
+        /* Герой с фоновым фото и эффектом зума */
+        .hero {
+            background-image: url('bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            z-index: 1;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+            z-index: 1;
+        }
+        .hero .content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        /* Анимация появления */
+        .fade-scale {
+            opacity: 0;
+            transform: scale(0.92);
+            transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+        .fade-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Типографика */
+        .names {
+            font-size: clamp(2.5rem, 12vw, 6rem);
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+        .and {
+            font-size: clamp(1.2rem, 5vw, 2rem);
+            font-weight: 300;
+            margin: 0 0.5rem;
+        }
+        .date-badge {
+            font-size: clamp(1.2rem, 5vw, 1.8rem);
+            font-weight: 300;
+            margin-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            display: inline-block;
+            padding-top: 1rem;
+        }
+        h2 {
+            font-size: clamp(1.8rem, 6vw, 2.8rem);
+            font-weight: 400;
+            letter-spacing: 0.03em;
+            margin-bottom: 1.5rem;
+        }
+        .section p, .text-block {
+            max-width: 700px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 1rem auto;
+        }
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            color: #aaa;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            z-index: 3;
+        }
+        .hero .scroll-hint {
+            color: rgba(255,255,255,0.8);
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+        .separator {
+            width: 60px;
+            height: 2px;
+            background-color: #ddd;
+            margin: 1.5rem auto;
+        }
+        /* Программа */
+        .schedule {
+            max-width: 500px;
+            margin: 1rem auto;
+            text-align: left;
+        }
+        .schedule-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        .time { font-weight: bold; }
+        /* Цветовая палитра */
+        .color-palette {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .color {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        /* Галерея */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            max-width: 1000px;
+        }
+        .gallery-item {
+            flex: 1 1 250px;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.03);
+        }
+        /* Кнопки и формы */
+        .btn, button, .rsvp-form input, .rsvp-form select, .rsvp-form textarea {
+            font-family: inherit;
+        }
+        .btn {
+            display: inline-block;
+            background: #1e1e1e;
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 40px;
+            text-decoration: none;
+            margin: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn:hover {
+            background: #3a3a3a;
+        }
+        .map-link {
+            background: #2c7da0;
+        }
+        .rsvp-form {
+            max-width: 500px;
+            margin: 1.5rem auto;
+            text-align: left;
+        }
+        .rsvp-form input, .rsvp-form select, .rsvp-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .rsvp-form button {
+            background: #1e1e1e;
+            color: white;
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 40px;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+        .track-input {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        .track-input input {
+            padding: 0.6rem;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+        }
+        .contact-list {
+            margin-top: 1rem;
+            font-size: 1rem;
+        }
+        @media (max-width: 640px) {
+            .section { padding: 2rem 1rem; }
+            .schedule-item { flex-direction: column; align-items: center; gap: 0.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- СЕКЦИЯ 1: HERO с именами и фоновым зумом -->
+    <section class="section hero" id="hero">
+        <div class="content fade-scale">
+            <div class="names">
+                <span>Вадим</span>
+                <span class="and">&</span>
+                <span>Мария</span>
+            </div>
+            <div class="date-badge">29 июня 2026</div>
+            <div class="scroll-hint" onclick="scrollToNext()">↓ ЛИСТАЙТЕ ВНИЗ ↓</div>
+        </div>
+    </section>
+
+    <!-- СЕКЦИЯ 2: ПРИВЕТСТВИЕ -->
+    <section class="section" id="welcome">
+        <div class="fade-scale">
+            <h2>Дорогие наши родные, друзья и близкие!</h2>
+            <p>С огромной радостью и трепетом в сердцах мы приглашаем вас присоединиться к значимому для нас событию — дню нашей свадьбы! Этот день станет началом новой главы в нашей совместной жизни, и мы хотим разделить его с самыми дорогими для нас людьми. Мы бесконечно рады вашему присутствию и с нетерпением ждём встречи с каждым из вас.</p>
+        </div>
+        <div class="scroll-hint" onclick="scrollToNext()">↓ ДАЛЕЕ ↓</div>
+    </section>
+
+    <!-- СЕКЦИЯ 3: МЕСТО И ВРЕМЯ -->
+    <section class="section" id="place">
+        <div class="fade-scale">
+            <h2>Место и время</h2>
+            <p><strong>Сбор гостей:</strong> 16:00 &nbsp;|&nbsp; <strong>Церемония:</strong> 16:30 &nbsp;|&nbsp; <strong>Банкет:</strong> 17:00</p>
+            <p><strong>Celebreio Hall — Банкетный зал и парк у реки</strong><br>Парк им. 1 Мая, Центральный проезд, 7 ст4</p>
+            <a href="https://yandex.ru/maps/org/celebreio_hall/..." class="btn map-link" target="_blank">Построить маршрут</a>
+        </div>
+        <div class="scroll-hint" onclick="scrollToNext()">↓ ПРОГРАММА ↓</div>
+    </section>
+
+    <!-- СЕКЦИЯ 4: ПРОГРАММА ВЕЧЕРА -->
+    <section class="section" id="schedule">
+        <div class="fade-scale">
+            <h2>Как это будет</h2>
+            <div class="schedule">
+                <div class="schedule-item"><span class="time">16:00</span><span>Сбор гостей, фуршет</span></div>
+                <div class="schedule-item"><span class="time">16:30</span><span>Свадебная церемония</span></div>
+                <div class="schedule-item"><span class="time">17:30</span><span>Праздничный банкет</span></div>
+                <div class="schedule-item"><span class="time">20:00</span><span>Вынос торта</span></div>
+                <div class="schedule-item"><span class="time">21:30</span><span>Дискотека</span></div>
+                <div class="schedule-item"><span class="time">23:00</span><span>Окончание вечера</span></div>
+            </div>
+        </div>
+        <div class="scroll-hint" onclick="scrollToNext()">↓ ДРЕСС-КОД ↓</div>
+    </section>
+
+    <!-- СЕКЦИЯ 5: ДРЕСС-КОД И ЦВЕТА -->
+    <section class="section" id="dresscode">
+        <div class="fade-scale">
+            <h2>Дресс-код</h2>
+            <p>Мы не настаиваем на чётком соблюдении, но будем рады, если вы поддержите нашу цветовую палитру.</p>
+            <p><strong>Мужчины:</strong> классические костюмы. Не ограничивайтесь только чёрным — светлые оттенки приветствуются.<br>
+            <strong>Дамы:</strong> коктейльные или вечерние платья в природных оттенках (белый цвет — для невесты).</p>
+            <div class="color-palette">
+                <div class="color" style="background:#800020;" title="Бордовый"></div>
+                <div class="color" style="background:#1B4D3E;" title="Глубокий зелёный"></div>
+                <div class="color" style="background:#5E8C5A;" title="Травяной"></div>
+                <div class="color" style="background:#0F4C5C;" title="Изумрудный"></div>
+                <div class="color" style="background:#87CEEB;" title="Небесный"></div>
+                <div class="color" style="background:#D8B4C0;" title="Пыльная роза"></div>
+                <div class="color" style="background:#003153;" title="Глубокий синий"></div>
+                <div class="color" style="background:#CC7744;" title="Терракотовый"></div>
+            </div>
+            <p>Мужчин просим надевать белые рубашки, а галстуки и бабочки оставить дома. По возможности избегать кроссовок, предпочесть классические туфли и лоферы.</p>
+        </div>
+        <div class="scroll-hint" onclick="scrollToNext()">↓ ГОРЬКО! ↓</div>
+    </section>
+
+    <!-- СЕКЦИЯ 6: ПРОСЬБА ПРО "ГОРЬКО" -->
+    <section class="section" id="bitter">
+        <div class="fade-scale">
+            <h2>Горько? Только с тостом!</h2>
+            <p>Нам хотелось бы сделать этот день добрым, уютным и семейным, поэтому просим вас воздержаться от многократных «Горько!». Если вы всё-таки хотите прокричать заветное слово, нам будет приятно перед этим услышать длинный грузинский тост с добрыми пожеланиями. Создадим весёлое настроение вместе! 😊</p>
+        </div>
+        <div class="scroll-hint" onclick="scrollToNext()">↓ ПОДАРКИ ↓</div>
+    </section>
+
+    <!-- СЕКЦИЯ 7: О ДАРАХ СЕРДЦА -->
+    <section class="section" id="gifts">
+        <div class="fade-scale">
+            <p>❤️ <strong>Ваше присутствие — главный подарок для нас</strong><br>Если душа просит большего — порадуйте нас конвертом или переводом на карты Сбера, Т-Банка или Газпромбанка по нашим номерам:</p>
+            <p>Жених: 8 933 325-71-11 (Вадим)<br>Невеста: 8 904 111-40-89 (Мария)</p>
+            <div class="separator"></div>
+            <p>🎉 <strong>Букетная традиция</strong><br>Пожалуйста, не дарите нам цветы — мы не успеем насладиться их красотой. Если для вас важно сделать нам комплимент, мы будем рады вашей любимой книге с тёплыми словами внутри или бутылке красного вина. Так наша домашняя библиотека и винотека наполнятся смыслом.</p>
+        </div>
+        <div class="scroll-hint" onclick="scrollToNext()">↓ ВАЖНЫЕ МОМЕНТЫ ↓</div>
+    </section>
+
+    <!-- СЕКЦИЯ 8: ВАЖНЫЕ МОМЕНТЫ -->
+    <section class="section" id="important">
+        <div class="fade-scale">
+            <h2>Важные моменты</h2>
+            <div class="text-block" style="text-align: left; max-width: 700px;">
+                <p>• На нашей свадьбе планируется активная программа для взрослых. Чтобы вы могли насладиться праздником и хорошо отдохнуть, просим вас оставить маленьких деток в надёжных руках на этот вечер. Однако, если обстоятельства не позволяют — предупредите нас заранее.</p>          
+                <p>• Просим вас на празднике воздержаться от тем политики и сохранить атмосферу уютного семейного торжества.</p>
+                <p>• При подтверждении отметьте, есть ли у вас аллергии и предпочтения по напиткам (безалкогольные, красное вино, белое вино, коньяк).</p>
+                <p>• При публикации фото добавляйте хэштег <strong>#Makolovy_wedding</strong> или отмечайте @maria_jarn и @vadik_0597.</p>
+            </div>
+        </div>
+        <div class="scroll-hint" onclick="scrollToNext()">↓ НАШИ ФОТО ↓</div>
+    </section>
+
+    <!-- СЕКЦИЯ 9: ГАЛЕРЕЯ ФОТОГРАФИЙ -->
+    <section class="section" id="gallery">
+        <div class="fade-scale">
+            <h2>Наши мгновения</h2>
+            <div class="gallery">
+                <div class="gallery-item"><img src="photo1.jpg" alt="Фото 1"></div>
+                <div class="gallery-item"><img src="photo2.jpg" alt="Фото 2"></div>
+                <div class="gallery-item"><img src="photo3.jpg" alt="Фото 3"></div>
+                <!-- Добавьте ещё фото по аналогии -->
+            </div>
+        </div>
+        <div class="scroll-hint" onclick="scrollToNext()">↓ ВАШ ТРЕК ↓</div>
+    </section>
+
+    <!-- СЕКЦИЯ 10: ПЛЕЙЛИСТ -->
+    <section class="section" id="playlist">
+        <div class="fade-scale">
+            <h2>Ваш трек в наш вечер</h2>
+            <p>Оставьте композицию, и мы постараемся включить её в плейлист, если это не будет выходить за рамки формата торжества.</p>
+            <div class="track-input">
+                <input type="text" id="trackName" placeholder="Исполнитель — Название">
+                <button class="btn" onclick="addTrack()">Добавить в плейлист</button>
+            </div>
+            <p id="trackFeedback" style="font-size:0.9rem; margin-top:0.5rem;"></p>
+        </div>
+        <div class="scroll-hint" onclick="scrollToNext()">↓ ПОДТВЕРДИТЕ УЧАСТИЕ ↓</div>
+    </section>
+
+    <!-- СЕКЦИЯ 11: RSVP -->
+    <section class="section" id="rsvp">
+        <div class="fade-scale">
+            <h2>Подтверждение участия</h2>
+            <p>Пожалуйста, сообщите о своём решении <strong>до 1 мая 2026</strong> любым удобным способом. Если не заполняете форму, не забудьте сообщить об ограничениях в питании и выборе напитков.</p>
+            <form class="rsvp-form" id="rsvpForm" onsubmit="submitRSVP(event)">
+                <input type="text" placeholder="Ваше имя" required>
+                <select required>
+                    <option value="">Выберите напиток</option>
+                    <option>Безалкогольный</option>
+                    <option>Красное вино</option>
+                    <option>Белое вино</option>
+                    <option>Коньяк</option>
+                </select>
+                <textarea rows="2" placeholder="Аллергии / ограничения / дети"></textarea>
+                <input type="tel" placeholder="Телефон / Telegram для связи">
+                <button type="submit">Отправить</button>
+            </form>
+            <div class="contact-list">
+                <p>Или напишите нам лично:</p>
+                <p>📱 Вадим — 8 933 325-71-11 (Telegram, смс)<br>
+                📱 Мария — 8 904 111-40-89 (Telegram, смс)</p>
+                <p>По организационным вопросам: Светлана — +7 (929) 608-34-49</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Эффект увеличения фона при скролле (zoom)
+        const heroSection = document.getElementById('hero');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            let newScale = 1 + Math.min(scrollY / 300, 0.2);
+            heroSection.style.backgroundSize = `${newScale * 100}%`;
+        });
+
+        // Анимация появления блоков
+        const fadeElements = document.querySelectorAll('.fade-scale');
+        function checkVisibility() {
+            fadeElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 80) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+        window.addEventListener('scroll', checkVisibility);
+        window.addEventListener('resize', checkVisibility);
+        checkVisibility();
+
+        // Плавный скролл к следующей секции
+        function scrollToNext() {
+            const sections = document.querySelectorAll('.section');
+            let currentIndex = -1;
+            for (let i = 0; i < sections.length; i++) {
+                const rect = sections[i].getBoundingClientRect();
+                if (rect.top >= 0 && rect.top < window.innerHeight / 2) {
+                    currentIndex = i;
+                    break;
+                }
+            }
+            if (currentIndex !== -1 && currentIndex + 1 < sections.length) {
+                sections[currentIndex + 1].scrollIntoView({ behavior: 'smooth' });
+            } else if (currentIndex === -1 && sections.length) {
+                sections[0].scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Добавление трека
+        function addTrack() {
+            const track = document.getElementById('trackName').value.trim();
+            const feedback = document.getElementById('trackFeedback');
+            if (track === "") {
+                feedback.innerHTML = "Напишите исполнителя и название 🎵";
+                feedback.style.color = "#c00";
+            } else {
+                feedback.innerHTML = `Спасибо! "${track}" — мы постараемся включить.`;
+                feedback.style.color = "#2c7da0";
+                document.getElementById('trackName').value = "";
+                setTimeout(() => { feedback.innerHTML = ""; }, 3000);
+            }
+        }
+
+        // Отправка формы RSVP
+        function submitRSVP(event) {
+            event.preventDefault();
+            const form = event.target;
+            const name = form.querySelector('input[placeholder="Ваше имя"]').value;
+            if (!name) {
+                alert("Пожалуйста, укажите ваше имя.");
+                return;
+            }
+            alert(`${name}, спасибо за подтверждение! Мы свяжемся при необходимости.`);
+            form.reset();
+        }
+    </script>
+</body>
+</html>
